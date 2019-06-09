@@ -318,8 +318,9 @@ public:
         fp = fopen(vertexInput, "r");
         fscanf(fp, "%d", &vertexNum);
         vertexArray = (vertexValue *)malloc(vertexNum*sizeof(vertexValue));
+        unsigned long long vertexId;
         for(int i=0; i<vertexNum; ++i){
-            fscanf(fp, "%d %d", &vertexArray[i].type, &vertexArray[i].value);
+            fscanf(fp, "%lld %d %d", &vertexId, &vertexArray[i].type, &vertexArray[i].value);
         }
         fclose(fp);
 
