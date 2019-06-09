@@ -341,6 +341,7 @@ public:
         unsigned long long to_ver;
         int outdegree = 0;
         edgeValue edg_val;
+        leafNum = subVertexNum;
 
         fscanf(sub_fp,"%lld %lld %d %d",&from_ver,&to_ver,&edg_val.type,&edg_val.value);
         last_ver = from_ver;
@@ -349,12 +350,13 @@ public:
         subgraph[from_ver].outEdgeArray[0].value = edg_val.value;
         subgraph[from_ver].outEdgeArray[0].toId = to_ver;
 
-        for(int i=0; i<subEdgeNum; i++){
+        for(int i=1; i<subEdgeNum; i++){
             fscanf(sub_fp, "%lld %lld %d %d", &from_ver, &to_ver, &edg_val.type, &edg_val.value);
             if (last_ver != from_ver) 
             {
                 last_ver = from_ver;
                 subgraph[last_ver].outEdgeNum = outdegree;
+                leafNum--;
                 outdegree = 1;
             } 
             else 
@@ -365,10 +367,12 @@ public:
             subgraph[from_ver].outEdgeArray[outdegree-1].value = edg_val.value;
             subgraph[from_ver].outEdgeArray[outdegree-1].toId = to_ver;
         }
+        subgraph[last_ver].outEdgeNum = outdegree;
+        leafNum--;
 
         fclose(sub_fp);
 
-        /*
+        
         //子图输出，验证结果
         for(int i =0;i<subVertexNum;i++)
         {
@@ -380,7 +384,7 @@ public:
                printf("\n");
            }
         }
-        */
+        
 
         aggregator = new VERTEX_CLASS_NAME(Aggregator)[1];
         regNumAggr(1);
