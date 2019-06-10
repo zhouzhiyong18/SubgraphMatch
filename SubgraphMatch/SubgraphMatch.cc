@@ -355,8 +355,8 @@ public:
             fscanf(sub_fp, "%lld %lld %d %d", &from_ver, &to_ver, &edg_val.type, &edg_val.value);
             if (last_ver != from_ver) 
             {
-                last_ver = from_ver;
                 subgraph[last_ver].outEdgeNum = outdegree;
+                last_ver = from_ver;
                 leafNum--;
                 outdegree = 1;
             } 
